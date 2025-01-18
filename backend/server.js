@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 
 // Express App
 const app = express()
+const productRoutes = require('./routes/products')
 
 app.use((req, res, next) => {
     console.log("MIDDLEWARE: " + req.path, req.method)
@@ -12,9 +13,7 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.get('/', (req, res) => {
-    res.json({ message : "Welcome to the app!" })
-})
+app.use('/api/products/', productRoutes)
 
 // Listen for Requests
 app.listen(process.env.PORT, () => {
