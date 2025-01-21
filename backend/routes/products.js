@@ -1,29 +1,20 @@
 const express = require('express')
-const Product = require('../models/productModel')
+const {
+    createProduct,
+    getProducts,
+    getProduct
+} = require('../controllers/productContoller')
 
 const router = express.Router()
 
 // GET all products
-router.get('/', (req, res) => {
-    res.json({Message : 'GET all products'})
-})
+router.get('/', getProducts)
 
 // GET single product
-router.get('/:id', (req, res) => {
-    res.json({Message : 'GET a single product',})
-})
+router.get('/:id', getProduct)
 
 // POST a new product
-router.post('/', async (req, res) => {
-    const {name, brand, category, description, imageURL} = req.body
-
-    try {
-        const product = await Product.create({name, brand, category, description, imageURL})
-        res.status(200).json(product)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-})
+router.post('/', createProduct)
 
 // DELETE a product
 router.delete('/:id', (req, res) => {
