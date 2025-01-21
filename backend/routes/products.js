@@ -1,4 +1,5 @@
 const express = require('express')
+const Product = require('../models/productModel')
 
 const router = express.Router()
 
@@ -13,8 +14,15 @@ router.get('/:id', (req, res) => {
 })
 
 // POST a new product
-router.post('/', (req, res) => {
-    res.json({Message : 'POST a new product',})
+router.post('/', async (req, res) => {
+    const {name, brand, category, description, imageURL} = req.body
+
+    try {
+        const product = await Product.create({name, brand, category, description, imageURL})
+        res.status(200).json(product)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 })
 
 // DELETE a product

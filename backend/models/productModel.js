@@ -23,4 +23,6 @@ const productSchema = new Schema({ // TO-DO: Add ingredients list
         type: String,
         required: false
     }
-})
+}, { timestamp: true })
+
+module.exports = mongoose.model('Product', productSchema)
