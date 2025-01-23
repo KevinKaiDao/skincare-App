@@ -39,12 +39,28 @@ const createProduct = async (req, res) => {
 }
 
 // delete a product
+const deleteProduct = async (req, res) => {
+    const { id } = req.params
 
+    if (!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({ error: 'No such product!' })
+    }
+
+    const product = await Product.findOneAndDelete(id)
+
+    if (!product) {
+        return res.status(404).json({ error: 'No such product!' })
+    }
+
+    return res.status(200).json(product)
+
+}
 
 // update a product
 
 module.exports = {
     createProduct,
     getProducts,
-    getProduct
+    getProduct,
+    deleteProduct
 }

@@ -2,7 +2,8 @@ const express = require('express')
 const {
     createProduct,
     getProducts,
-    getProduct
+    getProduct,
+    deleteProduct
 } = require('../controllers/productContoller')
 
 const router = express.Router()
@@ -17,9 +18,7 @@ router.get('/:id', getProduct)
 router.post('/', createProduct)
 
 // DELETE a product
-router.delete('/:id', (req, res) => {
-    res.json({Message : 'Delete a product',})
-})
+router.delete('/:id', deleteProduct)
 
 // UPDATE a product
 router.patch('/:id', (req, res) => {
